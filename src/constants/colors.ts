@@ -35,5 +35,6 @@ export default {
     userInfoBackgroundColor:'#2A4BA0',
     userNameColor:'#F8F9FB',
     searchBarColor:'#153075',
-    searchPlaceHolderColor:'#8891A5'
+    searchPlaceHolderColor:'#8891A5',
+    priceColor:'#1E222B'
 }

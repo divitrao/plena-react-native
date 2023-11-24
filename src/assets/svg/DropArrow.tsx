@@ -7,7 +7,7 @@ const DropArrow = (props: SvgProps) => {
     xmlns="http://www.w3.org/2000/svg"
     width={9}
     height={5}
-    fill="none"
+    fill="#00000000"
     {...props}
   >
     <Path
