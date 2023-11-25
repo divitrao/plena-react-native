@@ -83,7 +83,10 @@ const BottomTab = createBottomTabNavigator<RootStackParamList>();
       <BottomTab.Screen  
       name={navigationPaths.FAVOURITE_TAB} 
       component={FavouriteScreen}  
-      options={{tabBarButton:(props)=><TabButton {...props} item={{'label':"Favourite"}} />}}
+      options={{tabBarButton:(props)=><TabButton {...props} item={{'label':"Favourite"}} 
+      />,
+      headerTitle:"Favourite's"
+      }}
       />
 
       <BottomTab.Screen  

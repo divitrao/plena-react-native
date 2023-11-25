@@ -55,7 +55,7 @@ const HomeScreen = ({navigation}:HomeMainScreenProps) => {
           <Text style={styles.name_text}>Hey, XYZ</Text>
         </View>
         <View>
-            <CartComponent count={cart_count} stroke='white' />
+            <CartComponent navigation={navigation} count={cart_count} stroke='white' />
         </View>
       </View>
 

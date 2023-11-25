@@ -1,3 +1,5 @@
+import { NativeStackScreenProps,NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from './navigationTypes';
 export interface BannerCount{
     count:number,
     orientation?:'horizontal'|'vertical',
@@ -6,5 +8,6 @@ export interface BannerCount{
 
 export interface CartCountProp{
     count:number;
-    stroke:'white'|'black'
+    stroke:'white'|'black',
+    navigation:NativeStackNavigationProp<RootStackParamList,'HomeTab'>
 }

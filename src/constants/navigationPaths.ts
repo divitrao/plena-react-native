@@ -9,6 +9,6 @@ export default {
     FAVOURITE_TAB:'FavouriteTab' as const,
     MORE_TAB:'MoreTab' as const,
     PRODUCT_DETAIL_SCREEN:'ProductDetailScreen' as const,
-    HOME_MAIN_SCREEN:'HomeMainScreen' as const
+    CART_SCREEN:'CartListScreen' as const
   };
   

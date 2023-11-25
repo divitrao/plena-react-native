@@ -38,5 +38,8 @@ export default {
     searchPlaceHolderColor:'#8891A5',
     priceColor:'#1E222B',
     starColor:'#F9B023',
-    Black20:'#C5CDD2'
+    Black20:'#C5CDD2',
+    blueLight:'#AEBDF6',
+    'greyScale-Black_2': '#616A7D',
+
 }

@@ -38,6 +38,6 @@ const styles = StyleSheet.create({
         marginLeft:25
     },
     search_text:{
-        color:"#ffffff"
+        color:colors.white
     }
 })

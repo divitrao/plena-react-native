@@ -97,7 +97,7 @@ add_minus_view:{
   height:50,
   flexDirection:"row",
   justifyContent:"space-between",
-  backgroundColor:"#AEBDF6",
+  backgroundColor:colors.blueLight,
   borderRadius:10},
   quantity_view:{
     justifyContent:"center"
