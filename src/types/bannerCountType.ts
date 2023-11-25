@@ -5,5 +5,6 @@ export interface BannerCount{
 }
 
 export interface CartCountProp{
-    count:number
+    count:number;
+    stroke:'white'|'black'
 }

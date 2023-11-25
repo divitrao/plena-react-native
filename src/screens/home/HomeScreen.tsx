@@ -1,4 +1,4 @@
-import { ActivityIndicator, FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import colors from '../../constants/colors'
 import CartComponent from '../../components/CartComponent'
@@ -12,8 +12,11 @@ import ProductBox from '../../components/ProductBox'
 import { singleProductType } from '../../types/productsType'
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks'
 import { productDataList } from '../../store/reducers/productSlice'
+import navigationPaths from '../../constants/navigationPaths'
+import { HomeMainScreenProps } from '../../types/navigationTypes'
+import { updateProductList } from '../../utils/likeProducts'
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}:HomeMainScreenProps) => {
   const dispatch = useAppDispatch()
   const product_list =   useAppSelector((state)=>state.productList.products)
   const cart_count = useAppSelector((state)=>state.productList.cart_count)
@@ -29,12 +32,7 @@ const HomeScreen = () => {
   },[])
 
   const setFavourite = (id:number)=>{
-      let updated_data = product_list.map((item)=>{
-        if(item.id==id){
-          return {...item,is_favourite:!item.is_favourite}
-        }
-        return item
-      })
+      let updated_data = updateProductList(id,product_list)
       dispatch(productDataList(updated_data))
     }
 
@@ -57,7 +55,7 @@ const HomeScreen = () => {
           <Text style={styles.name_text}>Hey, XYZ</Text>
         </View>
         <View>
-            <CartComponent count={cart_count} />
+            <CartComponent count={cart_count} stroke='white' />
         </View>
       </View>
 
@@ -79,8 +77,10 @@ const HomeScreen = () => {
       }}
       renderItem={({item,index})=>{
         return(
-          <View style={{}}>
+          <View>
+          <TouchableOpacity onPress={()=>navigation.navigate(navigationPaths.PRODUCT_DETAIL_SCREEN,{'item_detail':item})}>
           <ProductBox item={item} setFavourite={setFavourite} />
+          </TouchableOpacity>
           </View>
         )
       }}

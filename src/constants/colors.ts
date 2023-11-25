@@ -36,5 +36,7 @@ export default {
     userNameColor:'#F8F9FB',
     searchBarColor:'#153075',
     searchPlaceHolderColor:'#8891A5',
-    priceColor:'#1E222B'
+    priceColor:'#1E222B',
+    starColor:'#F9B023',
+    Black20:'#C5CDD2'
 }

@@ -4,11 +4,12 @@ import CartIcon from '../assets/svg/CartIcon'
 import fontName from '../constants/fontName'
 import colors from '../constants/colors'
 import { CartCountProp } from '../types/bannerCountType'
+import BlackCart from '../assets/svg/BlackCart'
 
-const CartComponent = ({count}:CartCountProp) => {
+const CartComponent = ({count,stroke}:CartCountProp) => {
   return (
     <View>
-      <CartIcon height={25} width={25} />
+      { stroke=='white' ?  <CartIcon height={25} width={25} />:<BlackCart />}
       { count!=0 &&  <View style={styles.cart_count}>
           <Text style={styles.cart_count_number}>{count}</Text>
       </View>}

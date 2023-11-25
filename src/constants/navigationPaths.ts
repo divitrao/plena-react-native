@@ -7,6 +7,8 @@ export default {
     HOME_TAB:'HomeTab' as const,
     CATEGORY_TAB:'CategoryTab' as const,
     FAVOURITE_TAB:'FavouriteTab' as const,
-    MORE_TAB:'MoreTab' as const
+    MORE_TAB:'MoreTab' as const,
+    PRODUCT_DETAIL_SCREEN:'ProductDetailScreen' as const,
+    HOME_MAIN_SCREEN:'HomeMainScreen' as const
   };
   

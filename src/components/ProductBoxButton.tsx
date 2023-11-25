@@ -4,6 +4,7 @@ import colors from '../constants/colors'
 import { buttonProp } from '../types/productBoxPropType'
 import { useAppDispatch, useAppSelector } from '../hooks/storeHooks'
 import { addCartCount, productDataList, reduceCartCount } from '../store/reducers/productSlice'
+import { addProduct, removeProduct } from '../utils/productAddOrRemove'
 
 const ProductBoxButton = ({quantity,product_id,max_stock}:buttonProp) => {
 
@@ -12,36 +13,16 @@ const ProductBoxButton = ({quantity,product_id,max_stock}:buttonProp) => {
 
 
   const addItem = (product_id:number,quantity:number)=>{
-    if(quantity+1<=max_stock){
-    let updated_list = product_list.map((item)=>{
-      if(item.id==product_id){
-        return {...item, quantity:item.quantity+1}
-      }
-      return item
-    })
-
+    let updated_list = addProduct(product_id,quantity,max_stock,product_list)
+    if(updated_list!=null){
     dispatch(productDataList(updated_list))
     dispatch(addCartCount())
+    }
   }
-  else{
-    Alert.alert('Reched  Max Quantity',"you can't add any more quantity of this product", [
-      {
-        text: 'Cancel',
-        onPress: () => console.log('Cancel Pressed'),
-        style: 'cancel',
-      },
-      {text: 'OK', onPress: () => console.log('OK Pressed')},
-    ]);
-  }
-  }
+  
 
   const reduceItem = (product_id:number) =>{
-    let updated_list = product_list.map((item)=>{
-      if(item.id==product_id){
-        return {...item, quantity:item.quantity-1}
-      }
-      return item
-    })
+    let updated_list = removeProduct(product_id,product_list)
     dispatch(productDataList(updated_list))
     dispatch(reduceCartCount())
   }
