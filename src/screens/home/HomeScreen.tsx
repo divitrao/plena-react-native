@@ -1,5 +1,5 @@
-import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native'
-import React, { useEffect } from 'react'
+import { ActivityIndicator, FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import React, { useCallback, useEffect, useState } from 'react'
 import colors from '../../constants/colors'
 import CartComponent from '../../components/CartComponent'
 import fontName from '../../constants/fontName'
@@ -9,18 +9,45 @@ import DeliveryTime from '../../components/DeliveryTime'
 import Banner from '../../components/Banner'
 import { productList } from '../../services/api/productList'
 import ProductBox from '../../components/ProductBox'
+import { singleProductType } from '../../types/productsType'
+import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks'
+import { productDataList } from '../../store/reducers/productSlice'
 
 const HomeScreen = () => {
+  const dispatch = useAppDispatch()
+  const product_list =   useAppSelector((state)=>state.productList.products)
+  const cart_count = useAppSelector((state)=>state.productList.cart_count)
+  const[isLoading,setIsLoading] = useState(true)
   useEffect(()=>{
     productList().then((response)=>{
-      console.log(response)
+      let updated_list = response['products'].map((item:singleProductType)=>{
+          return {...item, quantity:0,is_favourite:false }
+      })
+      dispatch(productDataList(updated_list))
+      setIsLoading(false)
     })
   },[])
+
+  const setFavourite = (id:number)=>{
+      let updated_data = product_list.map((item)=>{
+        if(item.id==id){
+          return {...item,is_favourite:!item.is_favourite}
+        }
+        return item
+      })
+      dispatch(productDataList(updated_data))
+    }
+
   return (
     <SafeAreaView style={styles.main_background}>
-      <FlatList 
+      { isLoading ? 
+      <View style={styles.loader}>
+        <ActivityIndicator size={"large"} />
+      </View>:
+      <FlatList
+      
       numColumns={2}
-      data={ Array.from(Array(100).keys())}
+      data={product_list}
       ListHeaderComponent={()=>{
         return(
           <View>
@@ -30,7 +57,7 @@ const HomeScreen = () => {
           <Text style={styles.name_text}>Hey, XYZ</Text>
         </View>
         <View>
-            <CartComponent />
+            <CartComponent count={cart_count} />
         </View>
       </View>
 
@@ -52,14 +79,22 @@ const HomeScreen = () => {
       }}
       renderItem={({item,index})=>{
         return(
-          <View style={styles.product_box}>
-          <ProductBox />
+          <View style={{}}>
+          <ProductBox item={item} setFavourite={setFavourite} />
           </View>
         )
       }}
       columnWrapperStyle={styles.column_style}
       ListFooterComponent={()=><View style={{height:500}}></View>}
+      ListEmptyComponent={()=>{
+        return (
+          <View style={styles.empty_list}>
+            <Text>No Data to Show</Text>
+          </View>
+        )
+      }}
       />
+    }
     </SafeAreaView>
   )
 }
@@ -68,7 +103,8 @@ export default HomeScreen
 
 const styles = StyleSheet.create({
   main_background:{
-    backgroundColor:colors.white
+    backgroundColor:colors.white,
+    flex:1
   },
   user_info:{
     backgroundColor:colors.userInfoBackgroundColor, 
@@ -110,6 +146,13 @@ const styles = StyleSheet.create({
   column_style:{
     justifyContent:"space-evenly",
     marginBottom:15
-  }
+  },
+  loader:{
+    flex:1,
+    justifyContent:"center",
+  },
+  empty_list:{
+    alignItems:"center",
+    marginTop:"10%"}
 
 })

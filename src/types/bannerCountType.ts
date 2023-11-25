@@ -3,3 +3,7 @@ export interface BannerCount{
     orientation?:'horizontal'|'vertical',
     scrollEnabled?:boolean
 }
+
+export interface CartCountProp{
+    count:number
+}

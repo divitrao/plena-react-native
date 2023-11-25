@@ -11,6 +11,6 @@ export interface singleProductType {
     thumbnail: string;
     images?: (string)[] | null;
     is_favourite?:boolean,
-    quantity?:number
+    quantity:number
   }
   

@@ -1,6 +1,6 @@
 import React from 'react'
 import Svg, { SvgProps, Path } from "react-native-svg"
-const HeartDisliked = () => {
+const HeartDisliked = (props: SvgProps) => {
   return (
     <Svg
     xmlns="http://www.w3.org/2000/svg"

@@ -1,23 +1,29 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import colors from '../constants/colors'
 import HeartLiked from '../assets/svg/HeartLiked'
 import ProductBoxButton from './ProductBoxButton'
 import fontName from '../constants/fontName'
+import { singleProductType } from '../types/productsType'
+import { ProdcutBoxProps } from '../types/productBoxPropType'
+import HeartDisliked from '../assets/svg/HeartDisliked'
 
-const ProductBox = () => {
+const ProductBox = ({item,setFavourite}:ProdcutBoxProps) => {
   return (
     <View style={styles.container}>
-      <Image style={{height:"70%",width:"100%",borderRadius:12}} resizeMode={'contain'} source={{uri:"https://i.dummyjson.com/data/products/5/1.jpg"}} />
-      <View style={styles.heart_style}>
-        <HeartLiked/>
-      </View>
+      <Image style={{height:"70%",width:"100%",borderRadius:12}} resizeMode={'contain'} source={{uri:item.thumbnail}} />
+      <TouchableOpacity onPress={()=>{setFavourite(item.id)}} style={styles.heart_style}>
+        { item.is_favourite ?
+         <HeartLiked   /> :
+         <HeartDisliked />
+        }
+      </TouchableOpacity>
       <View style={styles.product_price_container}>
         <View>
-        <Text style={styles.item_price}>$499</Text>
-        <Text style={styles.item_name}>Clown tag HO3</Text>
+        <Text style={styles.item_price}>${item.price}</Text>
+        <Text numberOfLines={2} style={styles.item_name}>{item.title}</Text>
         </View>
-        <ProductBoxButton/>
+        <ProductBoxButton quantity={item.quantity} product_id={item.id} max_stock={item.stock}/>
       </View>
     </View>
   )
@@ -47,10 +53,15 @@ const styles = StyleSheet.create({
     item_price:{
             fontSize:14,
             fontFamily:fontName.MANROPE_SEMIBOLD,
-            color:colors.priceColor
+            color:colors.priceColor,
+            marginLeft:10
     },
     item_name:{
         fontSize:12,
-        fontFamily:fontName.MANROPE_REGULAR
+        fontFamily:fontName.MANROPE_REGULAR,
+        // borderWidth:1,
+        width:100,
+        marginLeft:7
+        
     }
 })

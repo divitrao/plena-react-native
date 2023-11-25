@@ -3,11 +3,13 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { singleProductType } from '../../types/productsType'
 
 export interface ProductListState {
-  products: singleProductType[]
+  products: singleProductType[],
+  cart_count:number
 }
 
 const initialState: ProductListState = {
   products: [],
+  cart_count:0
 }
 
 export const productSlice = createSlice({
@@ -17,11 +19,17 @@ export const productSlice = createSlice({
     productDataList: (state,actions:PayloadAction<singleProductType[]>) => {
       state.products = actions.payload
     },
+    addCartCount:(state)=>{
+      state.cart_count = state.cart_count+1
+    },
+    reduceCartCount:(state)=>{
+      state.cart_count = state.cart_count-1
+    }
 
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { productDataList } = productSlice.actions
+export const { productDataList,addCartCount,reduceCartCount } = productSlice.actions
 
 export default productSlice.reducer
