@@ -37,7 +37,6 @@ const CartScreen = ({navigation}:CartListScreenProps) => {
       }}
       ListFooterComponent={()=>{
         var sum = 0
-        console.log("rereerer")
         product_list.forEach((item)=>{
           if(item.quantity>=1){
             
