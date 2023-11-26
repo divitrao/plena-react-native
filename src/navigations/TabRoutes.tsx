@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   tabBar: {
-    height: 89,
+    height: 75,
     position: 'absolute',
     bottom: 16,
     right: 16,
@@ -144,6 +144,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     textAlign: 'center',
     color: colors.searchPlaceHolderColor,
-    fontFamily:fontName.MANROPE
+    fontFamily:fontName.MANROPE,
+    marginBottom:15
   }
 })

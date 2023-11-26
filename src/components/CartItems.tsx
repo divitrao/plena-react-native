@@ -28,14 +28,16 @@ const CartItems = ({item_detail}:CartListPropType) => {
         dispatch(reduceCartCount())
       }
   return (
-    <View>
+
       <View style={styles.main_container}>
       
       
       <View style={styles.image_name_price_view}>
         <Image source={{uri:item_detail.thumbnail}} style={{height:50,width:50}}/>
         <View style={styles.title_price_view}>
-            <Text numberOfLines={1} style={styles.title}>{item_detail.title}</Text>
+
+            <Text  numberOfLines={1} style={styles.title}>{item_detail.title}</Text>
+
             <Text style={styles.price}>${item_detail.price}</Text>
         </View>
       </View>
@@ -52,7 +54,6 @@ const CartItems = ({item_detail}:CartListPropType) => {
       
       
       </View>
-    </View>
   )
 }
 
@@ -62,16 +63,18 @@ const styles = StyleSheet.create({
     main_container:{
         flexDirection:"row",
         alignItems:"center",
-        justifyContent:"space-between"
+        justifyContent:"space-between",
+        marginVertical:10
 
     },
     image_name_price_view:{
         flexDirection:"row",
         alignItems:"center",
-        width:200
+        width:200,
+
     },
     title_price_view:{
-        marginLeft:15
+        marginLeft:15,
     },
     plus_minus_view:{
         flexDirection:"row",
@@ -90,9 +93,11 @@ const styles = StyleSheet.create({
         marginLeft:15
     },
     title:{
+        flex:1,
+        width:150,
         fontSize:16,
         fontFamily:fontName.MANROPE,
-        color:colors.priceColor
+        color:colors.priceColor,
     },
     price:{
         fontSize:16,

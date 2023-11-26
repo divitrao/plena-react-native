@@ -1,32 +1,38 @@
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import colors from '../../constants/colors'
 import { useAppSelector } from '../../hooks/storeHooks'
 import CartItems from '../../components/CartItems'
 import fontName from '../../constants/fontName'
 import { CartListScreenProps } from '../../types/navigationTypes'
 import navigationPaths from '../../constants/navigationPaths'
+import { singleProductType } from '../../types/productsType'
 
 const CartScreen = ({navigation}:CartListScreenProps) => {
 
   let product_list = useAppSelector((state)=>state.productList.products)
+  let [cartListItem,setCartListItem] = useState<singleProductType[]>([])
+
+  useEffect(()=>{
+    let cart_items = product_list.filter((item)=>{
+      if(item.quantity>=1){
+        return item
+      }
+    })
+    setCartListItem(cart_items)
+  },[product_list])
 
   return (
     <View style={styles.main_container}>
       <FlatList 
       showsVerticalScrollIndicator={false}
-      data={product_list}
+      data={cartListItem}
       renderItem={({item,index})=>{
-        if(item.quantity>=1){
+
         return(
-          <View style={styles.cart_item_component}>
             <CartItems  item_detail={item} />
-          </View>
         )
-        }
-        else{
-          return(<></>)
-        }
+
       }}
       ItemSeparatorComponent={(item)=>{
         if(item.leadingItem.quantity>=1){

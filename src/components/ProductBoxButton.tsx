@@ -29,25 +29,26 @@ const ProductBoxButton = ({quantity,product_id,max_stock}:buttonProp) => {
 
 
   return (
-    <View> 
+    <View style={{width:75,flex:1,alignItems:"flex-end",marginRight:5}}> 
       { quantity==0?
       <TouchableOpacity style={styles.round_button} onPress={()=>addItem(product_id,quantity)}>
 
         <Text style={styles.plus_sign}>+</Text>
   
       </TouchableOpacity>:
-      <View style={{flexDirection:"row",borderWidth:1}} >
+      <View style={{flexDirection:"row"}} >
+       <TouchableOpacity style={styles.round_button} onPress={()=>reduceItem(product_id)}>
+
+        <Text style={styles.plus_sign}>-</Text>
+
+        </TouchableOpacity>
+        <Text style={{marginHorizontal:10}}>{quantity}</Text>
         <TouchableOpacity style={styles.round_button} onPress={()=>addItem(product_id,quantity)}>
 
         <Text style={styles.plus_sign}>+</Text>
 
         </TouchableOpacity>
-        <Text style={{paddingHorizontal:10}}>{quantity}</Text>
-        <TouchableOpacity style={styles.round_button} onPress={()=>reduceItem(product_id)}>
-
-        <Text style={styles.plus_sign}>-</Text>
-  
-      </TouchableOpacity>
+                
 
         </View>
 }

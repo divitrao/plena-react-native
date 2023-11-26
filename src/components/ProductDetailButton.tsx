@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View,TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ProductDetailButtonPropType } from '../types/globalTypes'
 import colors from '../constants/colors'
 import fontName from '../constants/fontName'
@@ -19,6 +19,9 @@ const ProductDetailButton = ({quantity,max_quantity,product_id}:ProductDetailBut
     dispatch(addCartCount())
     }
   }
+  useEffect(()=>{
+    setCurrentQuantity(quantity)
+  },[quantity])
 
   const reduceItem = () =>{
     let updated_list = removeProduct(product_id,product_list)
@@ -36,19 +39,20 @@ const ProductDetailButton = ({quantity,max_quantity,product_id}:ProductDetailBut
         </TouchableOpacity>
         :
         <View style={styles.add_minus_view}>
+              <TouchableOpacity style={styles.square_button} onPress={()=>reduceItem()}>
+              <View style={styles.plus_minus_container}>
+            <Text style={styles.plus_minus_style}>-</Text>
+            </View>
+            </TouchableOpacity>
+            <View style={styles.quantity_view}>
+              <Text style={styles.quantity_text}>{currentQuantity}</Text>
+            </View>
             <TouchableOpacity style={styles.square_button} onPress={()=>addItem(currentQuantity)}>
             <View style={styles.plus_minus_container}>
               <Text style={styles.plus_minus_style}>+</Text>
               </View>
             </TouchableOpacity>
-            <View style={styles.quantity_view}>
-              <Text style={styles.quantity_text}>{currentQuantity}</Text>
-            </View>
-            <TouchableOpacity style={styles.square_button} onPress={()=>reduceItem()}>
-              <View style={styles.plus_minus_container}>
-            <Text style={styles.plus_minus_style}>-</Text>
-            </View>
-            </TouchableOpacity>
+            
         </View>  
     }
     </>

@@ -19,11 +19,14 @@ const ProductBox = ({item,setFavourite,navigation}:ProdcutBoxProps) => {
         }
       </TouchableOpacity>
       <View style={styles.product_price_container}>
-        <View>
+        <View style={styles.price_button_view}>
         <Text style={styles.item_price}>${item.price}</Text>
+        <ProductBoxButton quantity={item.quantity} product_id={item.id} max_stock={item.stock}/>
+        
+        </View>
+        <View style={styles.title_view}>
         <Text numberOfLines={2} style={styles.item_name}>{item.title}</Text>
         </View>
-        <ProductBoxButton quantity={item.quantity} product_id={item.id} max_stock={item.stock}/>
       </View>
     </TouchableOpacity>
   )
@@ -35,9 +38,9 @@ const styles = StyleSheet.create({
     container:{
         height:194,
         width:160,
-        // borderWidth:1,
         backgroundColor:'#F8F9FB',
-        borderRadius:12
+        borderRadius:12,
+        
     },
     heart_style:{
         position:"absolute",
@@ -45,9 +48,9 @@ const styles = StyleSheet.create({
         top:15
     },
     product_price_container:{
-        flexDirection:"row",
-        justifyContent:"space-around",
-        marginTop:2
+        // flexDirection:"row",
+        // justifyContent:"space-around",
+        // marginTop:2,
     },
     item_price:{
             fontSize:14,
@@ -60,7 +63,9 @@ const styles = StyleSheet.create({
         fontFamily:fontName.MANROPE_REGULAR,
         // borderWidth:1,
         width:100,
-        marginLeft:7
+        marginLeft:10
         
-    }
+    },
+    price_button_view:{flexDirection:"row",top:1},
+    title_view:{borderWidth:0}
 })
