@@ -29,3 +29,4 @@ export type RootStackParamList = {
 export type HomeMainScreenProps = NativeStackScreenProps<RootStackParamList,'HomeTab'>
 export type ProductDetailScreenProps = NativeStackScreenProps<RootStackParamList,'ProductDetailScreen'>
 export type CartListScreenProps = NativeStackScreenProps<RootStackParamList,'CartListScreen'>
+export type FavouriteTabScreenProps = NativeStackScreenProps<RootStackParamList,'FavouriteTab'>

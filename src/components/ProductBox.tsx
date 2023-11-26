@@ -1,16 +1,16 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, {memo} from 'react'
 import colors from '../constants/colors'
 import HeartLiked from '../assets/svg/HeartLiked'
 import ProductBoxButton from './ProductBoxButton'
 import fontName from '../constants/fontName'
-import { singleProductType } from '../types/productsType'
 import { ProdcutBoxProps } from '../types/productBoxPropType'
 import HeartDisliked from '../assets/svg/HeartDisliked'
+import navigationPaths from '../constants/navigationPaths'
 
-const ProductBox = ({item,setFavourite}:ProdcutBoxProps) => {
+const ProductBox = ({item,setFavourite,navigation}:ProdcutBoxProps) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity onPress={()=>navigation.navigate(navigationPaths.PRODUCT_DETAIL_SCREEN,{'item_detail':item})}  style={styles.container}>
       <Image style={{height:"70%",width:"100%",borderRadius:12}} resizeMode={'contain'} source={{uri:item.thumbnail}} />
       <TouchableOpacity onPress={()=>{setFavourite(item.id)}} style={styles.heart_style}>
         { item.is_favourite ?
@@ -25,12 +25,11 @@ const ProductBox = ({item,setFavourite}:ProdcutBoxProps) => {
         </View>
         <ProductBoxButton quantity={item.quantity} product_id={item.id} max_stock={item.stock}/>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 
-export default ProductBox
-
+export default memo(ProductBox)
 const styles = StyleSheet.create({
 
     container:{

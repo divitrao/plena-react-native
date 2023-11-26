@@ -1,4 +1,4 @@
-import { NativeStackScreenProps,NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from './navigationTypes';
 export interface BannerCount{
     count:number,

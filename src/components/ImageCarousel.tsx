@@ -37,7 +37,7 @@ const ImageCarousel = ({image_list,is_liked,id}:CarouselImagePropType) => {
                     <View
                         style={styles.carousel_Style}
                     >
-                        <Image source={{uri:image_list[index]}} style={{width:"100%",height:"100%"}}  />
+                        <Image resizeMode='contain' source={{uri:image_list[index]}} style={{width:"100%",height:"100%"}}  />
                     </View>
                 )}
             />

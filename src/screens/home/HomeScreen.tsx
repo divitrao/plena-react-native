@@ -21,15 +21,35 @@ const HomeScreen = ({navigation}:HomeMainScreenProps) => {
   const product_list =   useAppSelector((state)=>state.productList.products)
   const cart_count = useAppSelector((state)=>state.productList.cart_count)
   const[isLoading,setIsLoading] = useState(true)
+  let [totalItemAvailable,setTotalItemsAvailable] = useState(0)
+  let [skipItem,setSkipItems] = useState(0)
+  let [hasReachedEnd,setHasReachedEnd] = useState(false)
   useEffect(()=>{
-    productList().then((response)=>{
+    productList(skipItem).then((response)=>{
       let updated_list = response['products'].map((item:singleProductType)=>{
           return {...item, quantity:0,is_favourite:false }
       })
+      setSkipItems(20)
+      setTotalItemsAvailable(response['total'])
       dispatch(productDataList(updated_list))
       setIsLoading(false)
     })
   },[])
+
+  const reachedEndOfList = ()=>{
+    if(skipItem<totalItemAvailable){
+      setHasReachedEnd(true)
+      productList(skipItem).then((response)=>{
+        let updated_list = response['products'].map((item:singleProductType)=>{
+            return {...item, quantity:0,is_favourite:false }
+        })
+        setSkipItems(previousState=>previousState+20)
+        setTotalItemsAvailable(response['total'])
+        dispatch(productDataList([...product_list,...updated_list]))
+        setHasReachedEnd(false)
+      })
+    }
+  }
 
   const setFavourite = (id:number)=>{
       let updated_data = updateProductList(id,product_list)
@@ -43,7 +63,7 @@ const HomeScreen = ({navigation}:HomeMainScreenProps) => {
         <ActivityIndicator size={"large"} />
       </View>:
       <FlatList
-      
+      onEndReached={()=>reachedEndOfList()}
       numColumns={2}
       data={product_list}
       ListHeaderComponent={()=>{
@@ -77,15 +97,13 @@ const HomeScreen = ({navigation}:HomeMainScreenProps) => {
       }}
       renderItem={({item,index})=>{
         return(
-          <View>
-          <TouchableOpacity onPress={()=>navigation.navigate(navigationPaths.PRODUCT_DETAIL_SCREEN,{'item_detail':item})}>
-          <ProductBox item={item} setFavourite={setFavourite} />
-          </TouchableOpacity>
-          </View>
+          <ProductBox navigation={navigation} item={item} setFavourite={setFavourite} />
         )
       }}
       columnWrapperStyle={styles.column_style}
-      ListFooterComponent={()=><View style={{height:500}}></View>}
+      ListFooterComponent={()=><View style={{height:200}}>
+          {hasReachedEnd && <ActivityIndicator size={'large'} />}
+      </View>}
       ListEmptyComponent={()=>{
         return (
           <View style={styles.empty_list}>

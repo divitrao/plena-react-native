@@ -11,6 +11,14 @@ import colors from '../constants/colors';
 import * as Animatable from 'react-native-animatable';
 import { TabButtonContent } from '../types/bottomTabsType';
 import HomeIcon from '../assets/svg/HomeIcon';
+import HomeNotFocused from '../assets/svg/HomeNotFocused';
+import CategoryFocused from '../assets/svg/CategoryFocused';
+import CategoryNotFocused from '../assets/svg/CategoryNotFocused';
+import HeartFocused from '../assets/svg/HeartFocused';
+import HeartNotFocused from '../assets/svg/HeartNotFocused';
+import MoreFocused from '../assets/svg/MoreFocused';
+import MoreNotFocused from '../assets/svg/MoreNotFocused';
+import fontName from '../constants/fontName';
 
 
 const animate1 = { 0: { scale: .5, translateY: 7 }, .92: { translateY: -34 }, 1: { scale: 1.2, translateY: -24 } }
@@ -51,8 +59,7 @@ const TabButton = (props:TabButtonContent) => {
           <Animatable.View
             ref={circleRef}
             style={styles.circle} />
-            <HomeIcon />
-          {/* <Icon type={item.type} name={item.icon} color={focused ? Colors.white : Colors.primary} /> */}
+            { focused ? item.focused_icon : item.not_focused_icon  }
         </View>
         <Animatable.Text
           ref={textRef}
@@ -71,19 +78,20 @@ const BottomTab = createBottomTabNavigator<RootStackParamList>();
       <BottomTab.Screen  
       name={navigationPaths.HOME_TAB}  
       component={HomeScreen}
-      options={{tabBarButton:(props)=><TabButton {...props} item={{'label':"Home"}} />,headerShown:false}}
+      options={{tabBarButton:(props)=><TabButton {...props} item={{'label':"Home",'focused_icon':<HomeIcon />,'not_focused_icon':<HomeNotFocused />}} />,headerShown:false}}
       />
 
       <BottomTab.Screen  
       name={navigationPaths.CATEGORY_TAB} 
       component={CategoryScreen}  
-      options={{tabBarButton:(props)=><TabButton {...props} item={{'label':"Category"}} />}}
+      options={{tabBarButton:(props)=><TabButton {...props} item={{'label':"Category",'focused_icon':<CategoryFocused />,'not_focused_icon':<CategoryNotFocused />}} />,
+              headerTitle:"Category"}}
       />
 
       <BottomTab.Screen  
       name={navigationPaths.FAVOURITE_TAB} 
       component={FavouriteScreen}  
-      options={{tabBarButton:(props)=><TabButton {...props} item={{'label':"Favourite"}} 
+      options={{tabBarButton:(props)=><TabButton {...props} item={{'label':"Favourite",'focused_icon':<HeartFocused />,'not_focused_icon':<HeartNotFocused />}} 
       />,
       headerTitle:"Favourite's"
       }}
@@ -92,7 +100,8 @@ const BottomTab = createBottomTabNavigator<RootStackParamList>();
       <BottomTab.Screen  
       name={navigationPaths.MORE_TAB} 
       component={MoreScreen} 
-      options={{tabBarButton:(props)=><TabButton {...props} item={{'label':"More"}} />}}
+      options={{tabBarButton:(props)=><TabButton {...props} item={{'label':"More",'focused_icon':<MoreFocused />,'not_focused_icon':<MoreNotFocused />}} />,
+                headerTitle:"More"}}
       />
     </BottomTab.Navigator>
   )
@@ -134,6 +143,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 10,
     textAlign: 'center',
-    color: colors.primary,
+    color: colors.searchPlaceHolderColor,
+    fontFamily:fontName.MANROPE
   }
 })
